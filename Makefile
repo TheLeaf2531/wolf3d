@@ -6,7 +6,7 @@
 #    By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/07 17:11:05 by vboissel          #+#    #+#              #
-#    Updated: 2019/01/18 20:05:40 by vboissel         ###   ########.fr        #
+#    Updated: 2019/01/24 16:18:18 by vboissel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ CFLAGS = -Wall -Wextra -Werror
 FLAGSMLIB = -lmlx -framework OpenGL -framework AppKit
 LIBFT_DIR = ./libft/
 LIBFT = ./libft/libft.a
-SRC = $(wildcard ./*.c)
-HDR = $(wildcard ./*.h)
-INC = ./
+SRC = $(wildcard ./sources/*.c)
+HDR = $(wildcard ./headers/*.h)
+INC = ./headers
 INC_MLX = /usr/local/include
 
 all : $(NAME)

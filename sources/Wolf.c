@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   Wolf.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 14:56:16 by vboissel          #+#    #+#             */
-/*   Updated: 2019/01/18 18:26:28 by vboissel         ###   ########.fr       */
+/*   Created: 2019/01/24 16:16:28 by vboissel          #+#    #+#             */
+/*   Updated: 2019/01/28 17:22:36 by vboissel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "wolf.h"
 
-
-int     main(void)
+int		main(int argc, char **argv)
 {
-    t_env		*env;
-	t_mlximg	*img;
-    env = init_mlx();
-	env->game_env = init_game_env();
+	t_level		*level;
+	t_player	*player;
 
-	img = render_map_view(env, (t_vector2i){WIDTH, HEIGHT});
-	mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, img->img_ptr, 0, 0);
-	mlx_loop(env->mlx_ptr);
-    return (0);
+	if (argc != 2)
+		return (0);
+	if (!(level = parse_map(argv[1])))
+		return (0);
+	player = ft_memalloc(sizeof(t_player));
+	player->fov = 60;
+	player->pos = (t_vector2f){(float)1.5, (float)2.6};
+	player->rot = 45;
+	render_level(level, player, (t_vector2i){WIDTH, HEIGHT});
+	return (0); 
 }

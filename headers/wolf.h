@@ -5,33 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/15 19:15:00 by vboissel          #+#    #+#             */
-/*   Updated: 2018/12/15 19:19:55 by vboissel         ###   ########.fr       */
+/*   Created: 2019/01/24 16:22:45 by vboissel          #+#    #+#             */
+/*   Updated: 2019/01/27 18:13:21 by vboissel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF_H
 # define WOLF_H
 
+#include <math.h>
+#include <pthread.h>
+#include <stdio.h>
+
+#include "types.h"
 #include "libft.h"
+#include "mlx.h"
 
-typedef struct  s_env
-{
-    void    *mlx_ptr;
-    void    *win_ptr;
-}               t_env;
+# define SQR_SIZE 64 
+# define WIDTH 1024
+# define HEIGHT 720
 
+void		render_level(t_level *level, t_player *p, t_vector2i size);
 
-typedef struct  s_mapfile
-{
-    char    *fileName;
-    char    **lines;
-    size_t  size;
-}               t_mapFile;
+t_level				*parse_map(char *file_name);
 
-typedef struct  s_map
-{
-    char    *mapName;
-}               t_map;
-
+t_mlximg			*new_mlximg(void *mlx_ptr, int width, int height,
+								unsigned int color);
+void				free_mlximg(t_mlximg *img, t_env *env);
 #endif
