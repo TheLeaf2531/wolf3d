@@ -6,7 +6,7 @@
 /*   By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 16:22:45 by vboissel          #+#    #+#             */
-/*   Updated: 2019/01/27 18:13:21 by vboissel         ###   ########.fr       */
+/*   Updated: 2019/01/29 18:18:31 by vboissel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@
 # define SQR_SIZE 64 
 # define WIDTH 1024
 # define HEIGHT 720
+# define degreesToRadians(angleDegrees) ((angleDegrees) * M_PI / 180.0)
+# define radiansToDegrees(angleRadians) ((angleRadians) * 180.0 / M_PI)
+
+
+
 
 void		render_level(t_level *level, t_player *p, t_vector2i size);
 

@@ -6,7 +6,7 @@
 /*   By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 18:33:38 by vboissel          #+#    #+#             */
-/*   Updated: 2019/01/28 18:57:24 by vboissel         ###   ########.fr       */
+/*   Updated: 2019/01/29 18:43:37 by vboissel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,46 @@ void		render_level(t_level *level, t_player *p, t_vector2i size)
 {
 	t_vector2f	inter;
 	t_vector2f	a;
+	float 		pi;
+	
+/*
+	if (p->rot <= 90 || p->rot >= 270)
+		a.x = 1;
+	else
+		a.x = -1;
+	a.y = 1 * tan(p->rot);
+	//Py + (Px-A.x)*tan(ALPHA);
+	inter.x = floor(p->pos.x) + 1;
+	inter.y = p->pos.y - (p->pos.x - a.x) / tan(p->rot);
+	printf("Intersection 1 {%f,%f}\n", inter.x, inter.y);
+	inter.x += a.x;
+	inter.y += a.y;
+	printf("Intersection 1 {%f,%f}\n", inter.x, inter.y);
+	*/
+	
+	//	HORIZONTAL SALE MERDE
 
+	printf("Player rotation : %f\n", p->rot);
 	if (p->rot >= 0 && p->rot <= 180)
 		a.y = -1;
 	else
 		a.y = 1;
-	a.x = 1 / tan(p->rot);
-	printf("Player position {%f,%f}\n", p->pos.x, p->pos.y);
-	printf("xa = %f, Ya = %f\n", a.x, a.y);
 	if (p->rot >= 0 && p->rot <= 180)
 		inter.y = roundf(p->pos.y) - 1;
 	else
 		inter.y = roundf(p->pos.y) + 1;
-	inter.x = p->pos.x + ((p->pos.y - inter.y) / sin(p->rot));
-	//inter.x = p->pos.x + ((p->pos.y - inter.y) / tan(p->rot));
+	p->rot = degreesToRadians(p->rot);
+	a.x = 1.0 / tanf(p->rot);
+	printf("Player position {%f,%f}\n", p->pos.x, p->pos.y);
+	//printf("xa = %f, Ya = %f\n", a.x, a.y);
+	//printf("%f\n", (1 - (ceilf(p->pos.y) - p->pos.y)));
+	inter.x = p->pos.x + ((p->pos.y - inter.y) / tan(p->rot));
 	printf("Intersection 1 {%f,%f}\n", inter.x, inter.y);
 
 	inter.x += a.x;
 	inter.y += a.y;
 	printf("Intersection 2 {%f,%f}\n", inter.x, inter.y);
-
+	
 }
 
 

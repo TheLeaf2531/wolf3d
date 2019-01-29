@@ -6,7 +6,7 @@
 /*   By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 16:16:28 by vboissel          #+#    #+#             */
-/*   Updated: 2019/01/28 17:22:36 by vboissel         ###   ########.fr       */
+/*   Updated: 2019/01/29 19:02:09 by vboissel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int		main(int argc, char **argv)
 		return (0);
 	player = ft_memalloc(sizeof(t_player));
 	player->fov = 60;
-	player->pos = (t_vector2f){(float)1.5, (float)2.6};
-	player->rot = 45;
+	player->pos = (t_vector2f){(float)1.5, (float)2.5};
+	player->rot = 100;
 	render_level(level, player, (t_vector2i){WIDTH, HEIGHT});
 	return (0); 
 }
