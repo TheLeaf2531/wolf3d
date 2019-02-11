@@ -6,7 +6,7 @@
 /*   By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 16:18:34 by vboissel          #+#    #+#             */
-/*   Updated: 2019/01/27 18:12:11 by vboissel         ###   ########.fr       */
+/*   Updated: 2019/02/11 18:06:41 by vboissel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,24 @@ typedef struct	s_vector2f
 	float		y;
 }				t_vector2f;
 
+typedef struct	s_vector2d
+{
+	double		x;
+	double		y;
+}				t_vector2d;
+
+typedef	struct	s_ray
+{
+	int			hit;
+	int			side;
+	char		type;
+	double		dist;
+	double		wallDist;
+	t_vector2i	map_coord;
+	t_vector2d	ray_dir;
+	t_vector2d	sideDist;
+}				t_ray;
+
 typedef struct	s_mlximg
 {
 	void			*img_ptr;
@@ -46,9 +64,12 @@ typedef struct	s_mlximg
 typedef struct	s_player
 {
 	t_vector2f	pos;
+	t_vector2f	dir;
+	t_vector2f	canvas_plane;
+
+	t_vector2f	fov_radius;
 	float		rot;
 	float		fov;
-	t_vector2f	fov_radius;
 	float 		fov_ray_step;
 }				t_player;
 
@@ -57,6 +78,8 @@ typedef struct	s_env
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
+	t_player		*player;
+	t_level			*level;
 }				t_env;
 
 #endif
