@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Mlxinit.c                                          :+:      :+:    :+:   */
+/*   PngParser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/08 18:32:43 by vboissel          #+#    #+#             */
-/*   Updated: 2019/02/12 16:35:36 by vboissel         ###   ########.fr       */
+/*   Created: 2019/02/12 13:34:54 by vboissel          #+#    #+#             */
+/*   Updated: 2019/02/12 13:40:46 by vboissel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 
-t_env			*init_mlx(void)
+void		open_png(char	*filename)
 {
-	t_env	*e;
+	int		fd;
+	char	*line;
+	int		count;
 
-	if (!(e = ft_memalloc(sizeof(t_env))))
-		return (NULL);
-	if (!(e->mlx_ptr = mlx_init()))
-		return (NULL);
-	if (!(e->win_ptr = mlx_new_window(e->mlx_ptr, WIDTH, HEIGHT, "Wolf")))
-		return (NULL);
-	return (e);
+	fd = open(filename, O_RDONLY);
+	count = 0;
+	while (fd > 0 &&  count < 10 && get_next_line(fd, &line))
+	{
+		printf("%s\n", line);
+		free(line);
+		count++;
+	}
 }

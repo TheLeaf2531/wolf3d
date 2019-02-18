@@ -6,7 +6,7 @@
 /*   By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 16:18:34 by vboissel          #+#    #+#             */
-/*   Updated: 2019/02/11 18:06:41 by vboissel         ###   ########.fr       */
+/*   Updated: 2019/02/12 18:03:27 by vboissel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ typedef struct	s_vector2d
 	double		y;
 }				t_vector2d;
 
+typedef struct	s_case
+{
+	int		w_id[4];
+	int		f_id;
+}				t_case;
+
+typedef	struct	s_map
+{
+	t_case		**c;
+	t_vector2i	size;
+}				t_map;
+
+
 typedef	struct	s_ray
 {
 	int			hit;
@@ -45,6 +58,7 @@ typedef	struct	s_ray
 	char		type;
 	double		dist;
 	double		wallDist;
+	int			wallHit;
 	t_vector2i	map_coord;
 	t_vector2d	ray_dir;
 	t_vector2d	sideDist;
@@ -80,6 +94,7 @@ typedef struct	s_env
 	void			*win_ptr;
 	t_player		*player;
 	t_level			*level;
+	t_map			*map;
 }				t_env;
 
 #endif

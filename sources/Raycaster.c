@@ -6,50 +6,82 @@
 /*   By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 17:23:28 by vboissel          #+#    #+#             */
-/*   Updated: 2019/02/11 18:21:45 by vboissel         ###   ########.fr       */
+/*   Updated: 2019/02/18 17:22:22 by vboissel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 
+//old :
+//static	t_ray	raycast_dda(t_level *l, t_ray ray, t_vector2d itrsec_dist, t_vector2i step)
 
-
-static	t_ray	raycast_dda(t_level *l, t_ray ray, t_vector2d itrsec_dist, t_vector2i step)
+static	t_ray	raycast_dda(t_map *l, t_ray ray, t_vector2d itrsec_dist, t_vector2i step)
 {
 	ray.hit = 0;
 	while (!ray.hit)
 	{
+		//printf("coord %d %d\n", ray.map_coord.x, ray.map_coord.y);
 		if (ray.sideDist.x < ray.sideDist.y)
 		{
 			ray.sideDist.x += itrsec_dist.x;
 			ray.map_coord.x += step.x;
 			ray.side = 0;
+			ray.wallHit = ray.ray_dir.x >= 0 ? 0 : 2;
 		}
 		else
 		{
 			ray.sideDist.y += itrsec_dist.y;
 			ray.map_coord.y += step.y;
 			ray.side = 1;
+			ray.wallHit = ray.ray_dir.y >= 0 ? 3 : 1;
+
 		}
+		if (ray.map_coord.x >= l->size.x || ray.map_coord.x < 0 || ray.map_coord.y >= l->size.y || ray.map_coord.y < 0)
+		{
+
+			ray.hit = 0;
+			ray.type = 0;
+			return (ray);
+		}
+		if (l->c[ray.map_coord.x][ray.map_coord.y].w_id[ray.wallHit] != 0)
+		{
+			printf("hit at %d %d wall %d\n", ray.map_coord.y, ray.map_coord.x, ray.wallHit);
+			ray.type = l->c[ray.map_coord.y][ray.map_coord.x].w_id[ray.wallHit];
+		
+			ray.hit = 1;
+		}
+		/*
 		if (l->tab[ray.map_coord.y][ray.map_coord.x][0] != '0')
 		{
 			ray.hit = 1;
 			ray.type = l->tab[ray.map_coord.y][ray.map_coord.x][0];
 		}
+		*/
 	}
 	return (ray);
 }
 
-static	t_ray	calc_dist(t_vector2f p_pos, t_ray ray, t_vector2i step)
+static	t_ray	calc_dist(t_vector2f p, t_ray ray, t_vector2i step)
 {
 	if (!ray.side)
-		ray.dist = (ray.map_coord.x - p_pos.x + (1 - step.x) / 2) / ray.ray_dir.x;
+	{
+		ray.dist = (ray.map_coord.x - p.x + (1 - step.x) / 2) / ray.ray_dir.x;
+	//printf("ray lenght : %f\n", ray.dist);/*
+	}
 	else
-		ray.dist = (ray.map_coord.y - p_pos.y + (1 - step.y) / 2) / ray.ray_dir.y;
+	{
+		ray.dist = (ray.map_coord.y - p.y + (1 - step.y) / 2) / ray.ray_dir.y;
+		/*if (ray.wallHit == 1)
+			ray.dist -= 1;
+		else
+			ray.dist += 1;*/
+	}
 	return (ray);
 }
 
-t_ray				cast_ray(t_player	*p, t_level	*l, int x, int size)
+// old 
+//t_ray				cast_ray(t_player	*p, t_level	*l, int x, int size)
+t_ray				cast_ray(t_player	*p, t_map	*l, int x, int size)
 {
 	t_ray		ray;
 	double		cam_x;
@@ -71,8 +103,11 @@ t_ray				cast_ray(t_player	*p, t_level	*l, int x, int size)
 		ray.sideDist.y = (p->pos.y - ray.map_coord.y) * itrsec_dist.y;
 	else
 		ray.sideDist.y = (ray.map_coord.y + 1.0 - p->pos.y) * itrsec_dist.y;
+	//printf("test\n");
 	ray = raycast_dda(l, ray, itrsec_dist, step);
 	ray = calc_dist(p->pos, ray, step);
+	//printf("Dist : %f\n", ray.dist);
+	//printf("ray : dist : %f, hit : %d, side : %d c\n", ray.dist, ray.hit, ray.side);
 	return (ray);
 }
 
