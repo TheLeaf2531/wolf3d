@@ -6,7 +6,7 @@
 /*   By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 16:18:34 by vboissel          #+#    #+#             */
-/*   Updated: 2019/02/12 18:03:27 by vboissel         ###   ########.fr       */
+/*   Updated: 2019/02/20 19:21:44 by vboissel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,27 @@ typedef	struct	s_map
 	t_case		**c;
 	t_vector2i	size;
 }				t_map;
+
+typedef struct	s_wall
+{
+	t_vector2f	srt;
+	t_vector2f	end;
+	int			w_t;
+	int			gate;
+}				t_wall;
+
+typedef struct	s_sector
+{
+	int			id;
+	int			w_nbr;
+	t_wall		w[];
+}				t_sector;
+
+typedef	struct	s_map_v2
+{
+	int			s_nbr;
+	t_sector	s[];
+}				t_map_v2;
 
 
 typedef	struct	s_ray

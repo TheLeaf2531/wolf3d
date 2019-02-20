@@ -6,7 +6,7 @@
 /*   By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 18:15:17 by vboissel          #+#    #+#             */
-/*   Updated: 2018/06/14 16:26:08 by vboissel         ###   ########.fr       */
+/*   Updated: 2019/02/20 19:46:46 by vboissel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char			*ft_strrchr(const char *s, int c);
 char			*ft_strstr(const char *haystack, const char *needle);
 char			*ft_strjoin(char const *s1, char const *s2);
 int				ft_atoi(const char *str);
+float			ft_atof(const char *s);
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
 int				ft_isalnum(int c);

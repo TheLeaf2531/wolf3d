@@ -6,7 +6,7 @@
 /*   By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 16:22:45 by vboissel          #+#    #+#             */
-/*   Updated: 2019/02/18 16:57:28 by vboissel         ###   ########.fr       */
+/*   Updated: 2019/02/19 17:12:01 by vboissel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 #include "mlx.h"
 
 # define SQR_SIZE 64 
-# define WIDTH 16
-# define HEIGHT 9
+# define WIDTH 160
+# define HEIGHT 90
 # define PLAYER_SPEED 0.1
 # define PLAYER_ROTATION_SPEED 10
 # define degreesToRadians(angleDegrees) ((angleDegrees) * M_PI / 180.0)

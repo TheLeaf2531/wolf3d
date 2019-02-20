@@ -6,7 +6,7 @@
 /*   By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 17:23:28 by vboissel          #+#    #+#             */
-/*   Updated: 2019/02/18 17:22:22 by vboissel         ###   ########.fr       */
+/*   Updated: 2019/02/19 17:25:17 by vboissel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,51 @@
 static	t_ray	raycast_dda(t_map *l, t_ray ray, t_vector2d itrsec_dist, t_vector2i step)
 {
 	ray.hit = 0;
+	int s = 0;
+	if (ray.ray_dir.y == 0 && ray.ray_dir.x == -1)
+	{
+		printf (" 			Start \n");
+		printf ("step :				(%d ; %d)\n", step.x, step.y);
+		printf ("ray.ray_dir :		(%f ; %f)\n", ray.ray_dir.x, ray.ray_dir.y);
+		printf ("ray.map_coord.x :	(%d ; %d)\n", ray.map_coord.x, ray.map_coord.y);
+		printf ("ray.itrsec_dist:	(%f ; %f)\n", itrsec_dist.x, itrsec_dist.y);	
+		printf ("ray.sideDist :		(%f ; %f)\n", ray.sideDist.x, ray.sideDist.y);
+
+	}	
 	while (!ray.hit)
 	{
+		if (ray.ray_dir.y == 0 && ray.ray_dir.x == -1)
+			printf("\nSTEP : %d\n", s);
 		//printf("coord %d %d\n", ray.map_coord.x, ray.map_coord.y);
 		if (ray.sideDist.x < ray.sideDist.y)
 		{
 			ray.sideDist.x += itrsec_dist.x;
 			ray.map_coord.x += step.x;
 			ray.side = 0;
-			ray.wallHit = ray.ray_dir.x >= 0 ? 0 : 2;
+			ray.wallHit = ray.ray_dir.x > 0 ? 0 : 2;
+			if (ray.ray_dir.y == 0 && ray.ray_dir.x == -1)
+			{
+				printf ("ray.sideDist.x < ray.sideDist.y\n");
+				printf ("ray.map_coord.x :	(%d ; %d)\n", ray.map_coord.x, ray.map_coord.y);
+				printf ("ray.sideDist :		(%f ; %f)\n", ray.sideDist.x, ray.sideDist.y);
+			}	
 		}
 		else
 		{
 			ray.sideDist.y += itrsec_dist.y;
 			ray.map_coord.y += step.y;
 			ray.side = 1;
-			ray.wallHit = ray.ray_dir.y >= 0 ? 3 : 1;
+			ray.wallHit = ray.ray_dir.y > 0 ? 3 : 1;
+			if (ray.ray_dir.y == 0 && ray.ray_dir.x == -1)
+			{
+				printf ("ray.sideDist.x > ray.sideDist.y\n");
+				printf ("ray.map_coord.x :	(%d ; %d)\n", ray.map_coord.x, ray.map_coord.y);
+				printf ("ray.sideDist :		(%f ; %f)\n", ray.sideDist.x, ray.sideDist.y);
+			}	
 
 		}
-		if (ray.map_coord.x >= l->size.x || ray.map_coord.x < 0 || ray.map_coord.y >= l->size.y || ray.map_coord.y < 0)
+		if (ray.map_coord.x >= l->size.x || ray.map_coord.x < 0
+		 || ray.map_coord.y >= l->size.y || ray.map_coord.y < 0)
 		{
 
 			ray.hit = 0;
@@ -45,11 +71,17 @@ static	t_ray	raycast_dda(t_map *l, t_ray ray, t_vector2d itrsec_dist, t_vector2i
 		}
 		if (l->c[ray.map_coord.x][ray.map_coord.y].w_id[ray.wallHit] != 0)
 		{
-			printf("hit at %d %d wall %d\n", ray.map_coord.y, ray.map_coord.x, ray.wallHit);
+			if (ray.ray_dir.y == 0 && ray.ray_dir.x == -1)
+			{
+				printf ("\nFinal\n");
+				printf ("ray.map_coord.x :	(%d ; %d)\n", ray.map_coord.x, ray.map_coord.y);
+				printf ("ray.sideDist :		(%f ; %f)\n", ray.sideDist.x, ray.sideDist.y);
+				printf ("hit at %d %d wall %d\n", ray.map_coord.y, ray.map_coord.x, ray.wallHit);
+			}	
 			ray.type = l->c[ray.map_coord.y][ray.map_coord.x].w_id[ray.wallHit];
-		
 			ray.hit = 1;
 		}
+		s++;
 		/*
 		if (l->tab[ray.map_coord.y][ray.map_coord.x][0] != '0')
 		{
@@ -65,6 +97,7 @@ static	t_ray	calc_dist(t_vector2f p, t_ray ray, t_vector2i step)
 {
 	if (!ray.side)
 	{
+
 		ray.dist = (ray.map_coord.x - p.x + (1 - step.x) / 2) / ray.ray_dir.x;
 	//printf("ray lenght : %f\n", ray.dist);/*
 	}

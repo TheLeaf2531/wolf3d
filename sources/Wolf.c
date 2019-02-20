@@ -6,7 +6,7 @@
 /*   By: vboissel <vboissel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 16:16:28 by vboissel          #+#    #+#             */
-/*   Updated: 2019/02/13 17:29:21 by vboissel         ###   ########.fr       */
+/*   Updated: 2019/02/19 17:13:26 by vboissel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		main(int argc, char **argv)
 		return (0);
 	if (!(env->player = init_player(env)))
 		return (0);
-	env->player->pos = (t_vector2f) {(float)4, (float)4};
+	env->player->pos = (t_vector2f) {(float)4.1, (float)4};
 	env->player->dir = (t_vector2f) {(float)-1.0, (float)0.0};
 	env->player->canvas_plane = (t_vector2f) {(float)0, (float)0.66};
 	render_level(env, env->map, env->player, (t_vector2i){WIDTH, HEIGHT});
